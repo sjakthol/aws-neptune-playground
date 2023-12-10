@@ -23,3 +23,8 @@ delete-%:
 # Concrete deploy and delete targets for autocompletion
 $(addprefix deploy-,$(basename $(notdir $(wildcard templates/*.yaml)))):
 $(addprefix delete-,$(basename $(notdir $(wildcard templates/*.yaml)))):
+
+# Customizations
+delete-neptune-graph: pre-delete-neptune-graph
+pre-delete-neptune-graph:
+	-aws s3 rm --recursive s3://$(STACK_NAME_PREFIX)-neptune-graph-data
